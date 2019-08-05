@@ -1,0 +1,49 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+}
+
+#logo {
+	font-weight: 900;
+	font-size: 1.5rem;
+}
+
+.nav-item {
+	margin:0 10px;
+}
+
+.section-title {
+	font-weight: 800;
+	font-size: 2rem;
+}
+
+.card-text {
+	font-size: 0.9rem ;
+}
+
+
+/* Alert */
+
+.text-danger::before {
+	content: "*";
+}
+
+/* Posts */
+
+.topic {
+	border-radius: 20px;
+	margin-bottom: 20px;
+}
+.post {
+	background-color: #edecd6;
+	/*padding: 10px 10px;*/
+	border-radius: 15px;
+	margin-bottom: 20px;
+}
+
+/*MarkDown Editor*/
+
+.CodeMirror, .CodeMirror-scroll {
+	min-height: 200px !important;
+	height: 200px !important;
+}

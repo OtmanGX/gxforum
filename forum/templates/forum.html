@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="container mb-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-4">
+            {% block breadcrumb %} {% endblock %}
+        </ol>
+    </nav>
+    {% block content %}
+
+    {% endblock %}
+{% endblock %}
+</div>

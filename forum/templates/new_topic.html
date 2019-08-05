@@ -1,0 +1,48 @@
+{% extends 'forum.html' %}
+{% block title %}
+    {% if 'edit' in request.path %}
+        {{ post.topic.subject }} [Edit]
+    {% else %}New Topic
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="{% url 'forum:index' %}">Boards</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'forum:board' board.pk %}">{{ board.name }}</a></li>
+    <li class="breadcrumb-item active">
+        {% if 'edit' in request.path %}
+            {{ post.topic.subject }}
+        {% else %}New Topic
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        {% if 'edit' in request.path %}
+            <button type="submit" class="btn btn-success" >
+                Save changes
+            </button>
+            <a href="{% url 'forum:topic' board.pk post.topic.pk %}#{{ post.pk }}" class="btn btn-outline-secondary">Cancel</a>
+        {% else %}
+            <button type="submit" class="btn btn-success" >
+                Submit
+            </button>
+        {% endif %}
+
+    </form>
+
+{% endblock %}
+{% block extra_js %}
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script>
+            var simplemde = new SimpleMDE();
+        </script>
+    {% endblock %}

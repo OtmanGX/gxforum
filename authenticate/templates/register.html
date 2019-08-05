@@ -1,0 +1,20 @@
+{% extends 'card.html' %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block card_title %}
+    Register
+{% endblock %}
+
+{% block card_styles %}
+    col-md-8 offset-md-2
+{% endblock %}
+{% block form %}
+    <form method="POST" action="{% url 'register' %}" novalidate>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-secondary btn-lg">Sign in</button>
+</form>
+{% endblock %}
+

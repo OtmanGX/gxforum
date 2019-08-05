@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GxForum | {% block title %} {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,800,900" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Bootstrap CDN and external CSS -->
+    {% load bootstrap4 %}
+    {% bootstrap_javascript jquery='slim' %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+
+<div class="container-fluid p-0">
+    {% include 'partials/nav.html' %}
+</div>
+
+{% include 'partials/messages.html' %}
+
+{% block header %}
+{% endblock %}
+
+
+<!-- Footer -->
+
+<section id="footer" class="">
+
+</section>
+
+{% block extra_js %}
+    {% endblock %}
+</body>
+</html>

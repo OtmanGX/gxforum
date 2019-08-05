@@ -1,0 +1,43 @@
+{% extends 'forum.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Boards</li>
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead class="thead-light">
+        <th>Board</th>
+        <th>Posts</th>
+        <th>Topics</th>
+        <th>Last Post</th>
+
+        </thead>
+        <tbody>
+        {% for board in boards %}
+            <tr>
+                <td class="align-middle">
+                    <a href="{% url 'forum:board' board.pk %}">{{ board.name }}</a><br>
+                    <small class="text-muted d-block">{{ board.description }}</small>
+                </td>
+                <td class="align-middle">{{ board.get_posts_count }}</td>
+                <td class="align-middle">{{ board.topics.count }}</td>
+                <td class="align-middle">
+                    {% with post=board.get_last_post %}
+                        <small>
+                            <a href="{% url 'forum:topic' board.pk post.topic.pk %}#{{ post.pk }}">
+                                By {{ post.created_by }} at {{ post.created_at }}
+                            </a>
+                        </small>
+                    {% endwith %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

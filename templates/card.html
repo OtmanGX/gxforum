@@ -1,0 +1,23 @@
+{%  extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+{% block header %}
+    <div class="container my-3">
+
+        <div class="card {% block card_styles %}{% endblock %} p-0">
+            <div class="card-header text-center">
+                {% block card_title %}
+                {% endblock %}
+            </div>
+            <div class="card-body">
+                {% block form %}
+                {% endblock %}
+            </div>
+
+            {% block card_footer %}
+                {% endblock %}
+        </div>
+
+    </div>
+{% endblock %}

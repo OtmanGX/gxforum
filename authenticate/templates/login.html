@@ -1,0 +1,24 @@
+{% extends 'card_footer.html' %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block card_title %}
+    Login
+{% endblock %}
+{% block card_styles %}
+    col-md-6 offset-md-3
+{% endblock %}
+{% block form %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% include 'includes/form.html' %}
+        <input type="submit" value="Login" class="w-100 btn btn-primary btn-lg">
+    </form>
+{% endblock %}
+
+{% block card_footer_content %}
+    <a href="{% url 'password_reset' %}">Forgot your password ?</a> <br>
+    Create new Account? <a href="{% url 'register' %}">Signup</a>
+{% endblock %}

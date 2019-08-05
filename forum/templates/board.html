@@ -1,0 +1,59 @@
+{% extends 'forum.html' %}
+{% load humanize %}
+{% block title %}
+    {{ board.name }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="{% url 'forum:index' %}">Boards</a></li>
+    <li class="breadcrumb-item active">{{ board.name }}</li>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <a href="{% url 'forum:new_topic' board.pk %}" class="btn btn-secondary mb-2">New topic</a>
+    </div>
+    <table class="table">
+        <thead class="thead-light">
+        <th>Topic</th>
+        <th>Created by</th>
+        <th>Replies</th>
+        <th>Views</th>
+        <th>Last Update</th>
+
+        </thead>
+        <tbody>
+        {% for topic in topics %}
+            {% url 'forum:topic' board.pk topic.pk as topic_url %}
+            <tr>
+                <td class="align-middle">
+                    {#                   <a href="{% url 'forum:topic' board.pk topic.pk %}">{{ topic.subject }}<br></a>#}
+                    {#                    <small class="text-muted d-block">{{ board.description }}</small>#}
+                    <p class="mb-0">
+                        <a href="{{ topic_url }}">{{ topic.subject }}</a>
+                    </p>
+                    <small class="text-muted">
+                        Pages:
+                        {% for i in topic.get_page_range %}
+                            <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+                        {% endfor %}
+                        {% if topic.has_many_pages %}
+                            ... <a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
+                        {% endif %}
+                    </small>
+                </td>
+                <td class="align-middle">{{ topic.created_by.username }}</td>
+                <td class="align-middle">{{ topic.replies }}</td>
+                <td class="align-middle">{{ topic.views }}</td>
+                <td class="align-middle">{{ topic.last_updated|naturaltime }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    {#    Pagination#}
+    {% include 'partials/pagination.html' %}
+
+
+{% endblock %}
