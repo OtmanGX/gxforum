@@ -1,3 +1,3 @@
 # gxforum
 
-![GitHub Logo](https://github.com/OtmanGX/gxforum/raw/master/.screens/screen1.png)
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png
