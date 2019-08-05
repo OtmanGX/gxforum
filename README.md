@@ -1,3 +1,3 @@
 # gxforum
 
-![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+![screen1](https://github.com/OtmanGX/gxforum/raw/master/.screens/screen1.png)
