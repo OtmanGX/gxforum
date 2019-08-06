@@ -1,6 +1,12 @@
+html {
+	height: 100%;
+}
 body {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+	font-family: 'Montserrat', sans-serif;
+	position: relative;
+	padding-bottom: 6rem;
+	font-size: 1.2rem;
+	min-height: 100%;
 }
 
 #logo {
@@ -46,4 +52,16 @@ body {
 .CodeMirror, .CodeMirror-scroll {
 	min-height: 200px !important;
 	height: 200px !important;
+}
+
+/*Footer*/
+
+.footer {
+	background-color: #e9ecef;
+	width: 100%;
+	position: absolute;
+	/*extra*/
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
