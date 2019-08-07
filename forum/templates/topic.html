@@ -50,7 +50,7 @@
             </div>
         </div>
     {% endfor %}
-
+{% if user.is_authenticated %}
     <div class="card w-100 border-0">
         <div class="card-body">
             <form method="post" novalidate>
@@ -65,7 +65,9 @@
 
         </div>
     </div>
-
+    {% else %}
+    <a href="{% url 'login' %}" class="btn btn-success">Reply</a>
+{% endif %}
     {% include 'partials/pagination.html' %}
 {% endblock %}
 

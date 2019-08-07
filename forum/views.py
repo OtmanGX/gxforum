@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
-
+from django.contrib.auth.decorators import login_required
 from utils.deco import *
 from .models import Board, Post, Topic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -56,6 +56,8 @@ class PostsListView(ListView):
         return super().get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect("login")
         post = Post()
         topic = get_object_or_404(Topic, pk=self.kwargs["topic_id"])
         if request.POST.get('message'):
