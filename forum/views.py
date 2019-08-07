@@ -84,7 +84,7 @@ class NewPostView(LoginRequiredMixin, CreateView):
         topic.created_by = user
         topic.save()
         Post.objects.create(message=form.cleaned_data.get('message'), topic=topic, created_by=user)
-        return redirect('forum:board', id=topic.board.pk)
+        return redirect('forum:board', pk=topic.board.pk)
 
 
 @user_owner_required
