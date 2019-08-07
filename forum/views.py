@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
+
+from utils.deco import *
 from .models import Board, Post, Topic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -85,6 +87,7 @@ class NewPostView(LoginRequiredMixin, CreateView):
         return redirect('forum:board', id=topic.board.pk)
 
 
+@user_owner_required
 class EditPostView(LoginRequiredMixin, UpdateView):
     success_message = "The post has been successfully updated"
     template_name = "new_topic.html"
@@ -93,9 +96,9 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     pk_url_kwarg = 'post_uk'
     context_object_name = 'post'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(Q(created_by=self.request.user))
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.filter(Q(created_by=self.request.user))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -111,6 +114,7 @@ class EditPostView(LoginRequiredMixin, UpdateView):
         return redirect('forum:topic', id=post.topic.board.pk, topic_id=post.topic.pk)
 
 
+@user_owner_required
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     pk_url_kwarg = 'pk'

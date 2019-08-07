@@ -37,11 +37,14 @@
                     <span class="text-muted small ml-auto my-0 py-0">{{ post.created_at }}</span>
 
                     <div class="col-md-12 col-sm-12 my-0 py-0">{{ post.get_message_as_markdown }}</div>
+
+                    {% if request.user == post.created_by %}
                     <a href="{% url 'forum:edit_post' post.pk %}" class="btn btn-primary px-2 mr-2 mt-auto">Edit</a>
                     <form method="POST"  class="form-inline" action="{% url 'forum:delete_post' post.pk %}">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-danger px-2 mt-auto" value="Delete">
                     </form>
+                    {% endif %}
 {#                    <a href="{% url 'forum:delete_post' post.pk %}" class="btn btn-danger px-2 mt-auto">Delete</a>#}
                 </div>
             </div>
