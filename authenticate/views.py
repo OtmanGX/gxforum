@@ -28,7 +28,7 @@ class LogoutFormView(SuccessMessageMixin, LogoutView):
 class SignUpView(CreateView):
     template_name = "register.html"
     form_class = SignUpForm
-    success_url = reverse_lazy("home")
+    success_url = reverse_lazy("login")
 
 
 class EditProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
