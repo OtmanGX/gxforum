@@ -5,7 +5,7 @@
 
 ## About
 it's a simple website that contains a forum, blog and a contact page
-## Installation
+## Installation and usage
 Run that command to install the dependencies : (**it'is recommended to install it in a virtualenv**)
 
 `pip install -r requirements.txt`
