@@ -27,6 +27,7 @@
                 <td class="align-middle">{{ board.get_posts_count }}</td>
                 <td class="align-middle">{{ board.topics.count }}</td>
                 <td class="align-middle">
+                {% if board.topics.count %}
                     {% with post=board.get_last_post %}
                         <small>
                             <a href="{% url 'forum:topic' board.pk post.topic.pk %}#{{ post.pk }}">
@@ -34,6 +35,7 @@
                             </a>
                         </small>
                     {% endwith %}
+                {% endif %}
                 </td>
             </tr>
         {% endfor %}

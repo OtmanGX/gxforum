@@ -25,5 +25,6 @@ urlpatterns = [
     path('board/<int:id>/new', views.NewPostView.as_view(), name='new_topic'),
     path('post/<int:post_uk>/edit', views.EditPostView.as_view(), name='edit_post'),
     path('post/<int:pk>/delete', views.PostDeleteView.as_view(), name='delete_post'),
+    path('topic/<int:pk>/delete', views.TopicDeleteView.as_view(), name='delete_topic'),
     path('board/<int:id>/topic/<int:topic_id>', views.PostsListView.as_view(), name='topic'),
 ]

@@ -40,7 +40,8 @@
 
                     {% if request.user == post.created_by %}
                     <a href="{% url 'forum:edit_post' post.pk %}" class="btn btn-primary px-2 mr-2 mt-auto">Edit</a>
-                    <form method="POST"  class="form-inline" action="{% url 'forum:delete_post' post.pk %}">
+                    <form method="POST"  class="form-inline" action="{% if post == topic.posts.first %}{% url 'forum:delete_topic' topic.pk %}
+                                            {% else %}{% url 'forum:delete_post' post.pk %}{% endif %}">
                         {% csrf_token %}
                         <input type="submit" class="btn btn-danger px-2 mt-auto" value="Delete">
                     </form>

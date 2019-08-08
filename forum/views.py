@@ -5,12 +5,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
-from django.contrib.auth.decorators import login_required
 from utils.deco import *
 from .models import Board, Post, Topic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import NewTopicForm, NewPostForm
+
+PAGE_TOPIC_SIZE = 3
+PAGE_BOARD_SIZE = 10
 
 
 class BoardListView(ListView):
@@ -23,10 +25,10 @@ class TopicListView(ListView):
     template_name = "board.html"
     model = Topic
     context_object_name = "topics"
-    paginate_by = 10
+    paginate_by = PAGE_BOARD_SIZE
 
     def get_queryset(self):
-        self.board = get_object_or_404(Board, pk = self.kwargs.get("pk"))
+        self.board = get_object_or_404(Board, pk=self.kwargs.get("pk"))
         queryset = self.board.topics.order_by("-last_updated").annotate(replies=Count('posts') - 1)
         return queryset
 
@@ -39,7 +41,7 @@ class PostsListView(ListView):
     template_name = "topic.html"
     model = Post
     context_object_name = "posts"
-    paginate_by = 3
+    paginate_by = PAGE_TOPIC_SIZE
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, pk=self.kwargs["topic_id"])
@@ -98,10 +100,6 @@ class EditPostView(LoginRequiredMixin, UpdateView):
     pk_url_kwarg = 'post_uk'
     context_object_name = 'post'
 
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     return queryset.filter(Q(created_by=self.request.user))
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['board'] = self.get_object().topic.board
@@ -125,6 +123,21 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         messages.success(self.request, self.success_message)
         return reverse("forum:topic", args=[self.get_object().topic.board.pk, self.get_object().topic.pk])
+
+
+@user_owner_required
+class TopicDeleteView(LoginRequiredMixin, DeleteView):
+    model = Topic
+    pk_url_kwarg = 'pk'
+    success_message = "The topic has been successfully deleted"
+
+    def delete(self, request, *args, **kwargs):
+        self.board_pk = self.get_object().board.pk
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        messages.success(self.request, self.success_message)
+        return reverse("forum:board", args=[self.board_pk])
 
     # def delete(self, request, *args, **kwargs):
     #     messages.success(self.request, "The post has been successfully deleted")
