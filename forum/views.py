@@ -69,7 +69,7 @@ class PostsListView(ListView):
             post.save()
             topic.last_updated = timezone.now()
             topic.save()
-        return HttpResponseRedirect("")
+        return HttpResponseRedirect(request.path_info)
 
 
 class NewPostView(LoginRequiredMixin, CreateView):
