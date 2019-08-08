@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>GxForum | {% block title %} {% endblock %}</title>
+    <title>GxForum | {% block title %}Home {% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,800,900" rel="stylesheet">
@@ -30,6 +30,16 @@
 {% include 'partials/messages.html' %}
 
 {% block header %}
+
+    <div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Hello, world!</h1>
+        <p class="lead">This is a simple website, that contains a blog, Forum and a contact page.</p>
+        <hr class="my-4">
+        <p>using django 2.2 version with the minimum of packages requirements.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Don't click</a>
+    </div>
+    </div>
 {% endblock %}
 
 
@@ -41,7 +51,7 @@
 {% endblock %}
 
 <footer class="container-fluid footer px-5 py-1 mb-0">
-  <p class="align-middle"><img  height="50px" src="{% static 'imgs/logo.ico' %}"></p>
+    <p class="align-middle"><img  height="50px" src="{% static 'imgs/logo.ico' %}"></p>
 </footer>
 </body>
 </html>

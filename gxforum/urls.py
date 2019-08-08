@@ -15,14 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from forum import views
+from django.views.generic import TemplateView
+
+from contact.views import ContactView
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('forum/', include('forum.url')),
     path('blog/', include('blog.url')),
+    path('contact/', ContactView.as_view(), name="contact"),
     path('', include('authenticate.url')),
-    path('', views.BoardListView.as_view()),
+    path('', TemplateView.as_view(template_name="base.html")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
