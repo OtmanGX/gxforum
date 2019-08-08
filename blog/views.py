@@ -1,10 +1,16 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post
-# Create your views here.
-def index(request) :
-    posts = Post.objects.all()
-    return render(request, 'index.html', {'posts' : posts})
+from django.views.generic import ListView, DetailView
 
-def post(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-    return render(request, 'blog.html', {'post':post})
+from .models import Post
+
+
+class PostsListView(ListView):
+    template_name = "blog/index.html"
+    model = Post
+    context_object_name = "posts"
+
+
+class PostDetailView(DetailView):
+    template_name = "blog/post.html"
+    model = Post
+    context_object_name = "post"
+    slug_url_kwarg = "slug"

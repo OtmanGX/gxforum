@@ -1,0 +1,20 @@
+{% extends 'blog/index.html' %}
+{% load humanize %}
+{% block title %} Blog{% endblock %}
+{% block header %}
+    <section class="mt-5">
+        <div class="container">
+            <h2 class="section-title">{{ post.title }}</h2>
+            <span class="text-muted small">{{ post.created|naturaltime }}</span>
+            <hr />
+
+            <div class="justify-content-center mt-2">
+                {{ post.content | linebreaks }}
+            </div>
+
+        </div>
+    </section>
+
+
+
+{% endblock %}
