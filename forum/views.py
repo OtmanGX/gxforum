@@ -69,7 +69,12 @@ class PostsListView(ListView):
             post.save()
             topic.last_updated = timezone.now()
             topic.save()
-        return HttpResponseRedirect(request.path_info)
+        url = '{url}?page={page}'.format(
+            url=reverse('forum:topic', kwargs={'id': topic.board.pk, 'topic_id':topic.pk}),
+            page=topic.get_page_count()
+        )
+        return redirect(url)
+        # return HttpResponseRedirect(request.path_info)
 
 
 class NewPostView(LoginRequiredMixin, CreateView):
