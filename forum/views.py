@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils import timezone
-from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from utils.deco import *
 from .models import Board, Post, Topic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,13 +16,13 @@ PAGE_BOARD_SIZE = 10
 
 
 class BoardListView(ListView):
-    template_name = "home.html"
+    template_name = "forum/index.html"
     context_object_name = "boards"
     model = Board
 
 
 class TopicListView(ListView):
-    template_name = "board.html"
+    template_name = "forum/board.html"
     model = Topic
     context_object_name = "topics"
     paginate_by = PAGE_BOARD_SIZE
@@ -38,7 +38,7 @@ class TopicListView(ListView):
 
 
 class PostsListView(ListView):
-    template_name = "topic.html"
+    template_name = "forum/topic.html"
     model = Post
     context_object_name = "posts"
     paginate_by = PAGE_TOPIC_SIZE
@@ -73,7 +73,7 @@ class PostsListView(ListView):
 
 
 class NewPostView(LoginRequiredMixin, CreateView):
-    template_name = 'new_topic.html'
+    template_name = 'forum/new_topic.html'
     form_class = NewTopicForm
 
     def get_context_data(self, **kwargs):
@@ -94,7 +94,7 @@ class NewPostView(LoginRequiredMixin, CreateView):
 @user_owner_required
 class EditPostView(LoginRequiredMixin, UpdateView):
     success_message = "The post has been successfully updated"
-    template_name = "new_topic.html"
+    template_name = "forum/new_topic.html"
     model = Post
     fields = ('message',)
     pk_url_kwarg = 'post_uk'

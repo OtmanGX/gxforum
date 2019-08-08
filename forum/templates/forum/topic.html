@@ -1,0 +1,53 @@
+{% extends 'forum/base.html' %}
+{% block title %}
+    Topic
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item active"><a href="{% url 'forum:index' %}">Boards</a></li>
+    <li class="breadcrumb-item active"><a href="{% url 'forum:board' topic.board.id %}">{{ topic.board.name }}</a></li>
+    <li class="breadcrumb-item active">{{ topic.subject }}</li>
+{% endblock %}
+
+
+
+{% block content %}
+    {% for post in posts %}
+       {% if post == topic.posts.first%}
+        {% include 'forum/partials/topic_card.html' %}
+        {% else %}
+        {% include 'forum/partials/post_card.html' %}
+        {% endif %}
+    {% endfor %}
+{% if user.is_authenticated %}
+    <div class="card w-100 border-0">
+        <div class="card-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="form-group mb-0">
+                    <textarea class="form-control" rows="5" placeholder="Your message.." name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn text-white bg-success">
+                    Post a Reply
+                </button>
+            </form>
+
+        </div>
+    </div>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn btn-success">Reply</a>
+{% endif %}
+    {% include 'partials/pagination.html' %}
+{% endblock %}
+
+
+{% block extra_js %}
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script>
+            var simplemde = new SimpleMDE();
+        </script>
+    {% endblock %}
